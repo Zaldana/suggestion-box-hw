@@ -3,11 +3,23 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require("mongoose");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+mongoose.connect("mongodb://localhost:27017/express-mongodb-intro", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => {
+    console.log("MONGODB CONNECTED");
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

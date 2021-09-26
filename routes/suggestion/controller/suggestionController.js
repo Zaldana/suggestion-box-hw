@@ -43,4 +43,28 @@ module.exports = {
             }
         });
     },
-}
+
+    updateSuggestion: (id, body, callback) => {
+
+       Suggestion.findByIdAndUpdate(id, {
+           title: body.title,
+           suggestion: body.suggestion
+       }, { new: true }, function (err, updatedSuggestion) {
+           if (err) {
+               callback(err, null);
+           } else {
+               callback(null, updatedSuggestion)
+           }
+       })
+    },
+
+    deleteSuggestion: (id, callback) => {
+        Suggestion.findByIdAndDelete(id, function (err, deletedSuggestion) {
+            if (err) {
+                callback(err, null);
+            }else {
+                callback(null, deletedSuggestion);
+            };
+        });
+    }
+};
